@@ -1,0 +1,8 @@
+fastapi
+openai
+psycopg[binary]
+python-dotenv
+python-multipart
+requests
+selenium
+uvicorn
