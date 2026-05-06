@@ -37,7 +37,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # RAG/generated seed artifacts
-rag_seed/dist/
+rag_seed/
 
 # OS/editor noise
 .DS_Store
