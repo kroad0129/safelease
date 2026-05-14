@@ -1,4 +1,9 @@
-import type { ChatMessage, ContractChatResponse, VerifyResponse } from "@/types/contract";
+import type {
+  ChatMessage,
+  ContractChatResponse,
+  ContractHistoryItem,
+  VerifyResponse,
+} from "@/types/contract";
 
 export const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
 
@@ -29,6 +34,40 @@ export async function verifyContract(file: File): Promise<VerifyResponse> {
       typeof payload === "object" && payload && "detail" in payload && payload.detail
         ? payload.detail
         : "검증 처리 중 오류가 발생했습니다."
+    );
+  }
+
+  return payload as VerifyResponse;
+}
+
+export async function fetchContractHistory(): Promise<ContractHistoryItem[]> {
+  const response = await fetch(`${API_BASE}/api/contracts/history`, {
+    cache: "no-store",
+  });
+
+  const payload = (await response.json()) as { items?: ContractHistoryItem[] } | { detail?: string };
+  if (!response.ok) {
+    throw new Error(
+      typeof payload === "object" && payload && "detail" in payload && payload.detail
+        ? payload.detail
+        : "검토 기록을 불러오지 못했습니다."
+    );
+  }
+
+  return "items" in payload && Array.isArray(payload.items) ? payload.items : [];
+}
+
+export async function fetchContractHistoryResult(historyId: string): Promise<VerifyResponse> {
+  const response = await fetch(`${API_BASE}/api/contracts/history/${encodeURIComponent(historyId)}`, {
+    cache: "no-store",
+  });
+
+  const payload = (await response.json()) as VerifyResponse | { detail?: string };
+  if (!response.ok) {
+    throw new Error(
+      typeof payload === "object" && payload && "detail" in payload && payload.detail
+        ? payload.detail
+        : "검토 기록을 불러오지 못했습니다."
     );
   }
 

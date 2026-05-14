@@ -130,9 +130,7 @@ def build_rag_review_payload(result: dict) -> dict | None:
     }
 
 
-def build_verify_response_payload(result: dict) -> dict:
-    public_result = build_public_result(result)
-    output_paths = result.get("output_paths", {})
+def build_verify_response_payload_from_public_result(public_result: dict, output_paths: dict) -> dict:
     highlight_summary = public_result.get("highlight_summary", {})
 
     payload = {
@@ -157,3 +155,9 @@ def build_verify_response_payload(result: dict) -> dict:
     payload["ragAnalysis"] = build_rag_payload(public_result)
     payload["ragReview"] = build_rag_review_payload(public_result)
     return payload
+
+
+def build_verify_response_payload(result: dict) -> dict:
+    public_result = build_public_result(result)
+    output_paths = result.get("output_paths", {})
+    return build_verify_response_payload_from_public_result(public_result, output_paths)

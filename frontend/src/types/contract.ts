@@ -160,6 +160,16 @@ export type VerifyResponse = {
   };
 };
 
+export type ContractHistoryItem = {
+  id: string;
+  label: string;
+  createdAt: number;
+  reviewLevel?: ReviewLevel | string | null;
+  findingCount: number;
+  hasHighlight: boolean;
+  hasChatContext: boolean;
+};
+
 export type ContractChatResponse = {
   intent: string;
   answer: string;

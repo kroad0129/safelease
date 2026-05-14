@@ -604,6 +604,41 @@ textarea {
   padding: 24px;
 }
 
+.history-debug-page {
+  min-height: 100vh;
+  padding: 16px;
+  background: #fff;
+  color: #111;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.history-debug-panel {
+  width: min(760px, 100%);
+}
+
+.history-debug-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+}
+
+.history-debug-item {
+  width: fit-content;
+  border: 0;
+  background: transparent;
+  color: #0645ad;
+  padding: 2px 0;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.history-debug-item:disabled {
+  color: #777;
+  cursor: wait;
+}
+
 .upload-label {
   display: block;
   margin-bottom: 10px;

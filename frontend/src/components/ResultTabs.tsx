@@ -170,10 +170,10 @@ export function ResultTabs({
           ) : null}
           {!chatOpen && chatHintVisible ? (
             <div className="chat-hint-bubble" role="status">
-              <p>궁금한 조항이 있나요? 세리에게 편하게 물어보세요.</p>
+              <p>궁금한 조항이 있나요? 방콕에게 편하게 물어보세요.</p>
               <button
                 type="button"
-                aria-label="세리 안내 말풍선 닫기"
+                aria-label="방콕 안내 말풍선 닫기"
                 onClick={() => setChatHintVisible(false)}
               >
                 ×

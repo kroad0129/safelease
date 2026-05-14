@@ -4,11 +4,12 @@ import { useRouter } from "next/navigation";
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useMemo,
   useState,
 } from "react";
-import { askContractChat, resolveArtifactUrl, verifyContract } from "@/lib/api";
+import { askContractChat, fetchContractHistoryResult, resolveArtifactUrl, verifyContract } from "@/lib/api";
 import type { ChatMessage, VerifyResponse } from "@/types/contract";
 
 type ContractFlowContextValue = {
@@ -28,6 +29,7 @@ type ContractFlowContextValue = {
   setPreviewMode: (mode: "image" | "pdf") => void;
   setChatInput: (value: string) => void;
   startAnalysis: () => Promise<void>;
+  loadHistoryResult: (historyId: string) => Promise<void>;
   askChatbot: (question: string) => Promise<void>;
   resetFlow: () => void;
 };
@@ -104,6 +106,28 @@ export function ContractFlowProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const loadHistoryResult = useCallback(async (historyId: string) => {
+    setSubmitting(true);
+    setErrorMessage(null);
+    setResult(null);
+    setChatInput("");
+    setChatMessages([]);
+    setChatError(null);
+
+    try {
+      const nextResult = await fetchContractHistoryResult(historyId);
+      setSelectedFileState(null);
+      setSelectedFileName(`저장된 검토 기록 ${historyId}`);
+      setResult(nextResult);
+      setPreviewMode(nextResult.artifacts.highlightedImageUrl ? "image" : "pdf");
+      window.sessionStorage.setItem("safelease.fileName", `저장된 검토 기록 ${historyId}`);
+      window.sessionStorage.setItem("safelease.result", JSON.stringify(nextResult));
+      router.push("/result");
+    } finally {
+      setSubmitting(false);
+    }
+  }, [router]);
+
   const askChatbot = async (question: string) => {
     const trimmedQuestion = question.trim();
     const combinedResultUrl = result?.artifacts.combinedResultJsonUrl;
@@ -172,6 +196,7 @@ export function ContractFlowProvider({ children }: { children: ReactNode }) {
         setPreviewMode,
         setChatInput,
         startAnalysis,
+        loadHistoryResult,
         askChatbot,
         resetFlow,
       }}

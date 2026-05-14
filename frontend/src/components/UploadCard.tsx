@@ -24,13 +24,13 @@ export function UploadCard({
     <section className="upload-hero" aria-labelledby="upload-title">
       <div className="upload-intro">
         <p className="upload-kicker">SafeLease</p>
-        <h1 id="upload-title">세이프리스</h1>
+        <h1 id="upload-title">방콕</h1>
         <p>
-          안녕하세요, 세리예요. 저한테 검토할 서류를 보여주면 계약 조건, 검증 결과,
+          안녕하세요, 방콕예요. 저한테 검토할 서류를 보여주면 계약 조건, 검증 결과,
           불리할 수 있는 조항을 쉽게 정리해드릴게요.
         </p>
         <div className="upload-guide-notes" aria-label="서비스 이용 안내">
-          <p>세리의 검토 결과는 참고용이며, 중요한 결정 전에는 전문가 확인이 필요할 수 있어요.</p>
+          <p>방콕의 검토 결과는 참고용이며, 중요한 결정 전에는 전문가 확인이 필요할 수 있어요.</p>
           <p>
             업로드된 원본 PDF는 계약서 검토를 위해 일시적으로만 사용됩니다.
           </p>
